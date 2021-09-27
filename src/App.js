@@ -1,4 +1,4 @@
-import { Container} from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
@@ -11,19 +11,17 @@ function App() {
   const [meanings, setMeanings] = useState([]);
   const [category, setCategory] = useState("en");
 
-  const dictionaryApi = async () => {
-    try {
-      const data = await axios.get(
-        `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`
-      );
-      setMeanings(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
   useEffect(() => {
+    const dictionaryApi = async () => {
+      try {
+        const data = await axios.get(
+          `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`
+        );
+        setMeanings(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     dictionaryApi();
   }, [word, category]);
 
@@ -54,11 +52,7 @@ function App() {
           setMeanings={setMeanings}
         />
         {meanings && (
-          <Definitions
-            meanings={meanings}
-            word={word}
-            category={category}
-          />
+          <Definitions meanings={meanings} word={word} category={category} />
         )}
       </Container>
       <Footer />
